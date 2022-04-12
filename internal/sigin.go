@@ -17,10 +17,10 @@ import (
 )
 
 const (
-	_NumberOfPages = 500
+	_NumberOfPages = 1
 )
 
-// Sigin is the interface that groups the Start and Process methods
+// Sigin is the interface that groups the Start and Process & create methods
 type Sigin interface {
 	Process(wg *sync.WaitGroup, workerID int)
 	Start(ctx context.Context)
@@ -33,8 +33,8 @@ type sigin struct {
 	httpClient    HttpClient  // http client for getting method signature
 	db            store.Store
 	interval      time.Duration  // interval in which job needs to be processed
-	producerChan  chan *Response // channel to receive from stdio
-	consumerChan  chan *Response // chanel to consume the data
+	producerChan  chan *Response // channel to process jobs
+	consumerChan  chan *Response // chanel to consume jobs
 	serverAddress string
 }
 
